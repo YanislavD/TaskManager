@@ -1,6 +1,7 @@
 package com.example.demo.controller.dto;
 
 
+import com.example.demo.model.Priority;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -14,4 +15,7 @@ public class CreateTaskRequest {
 
     @NotNull
     private String description;
+
+    @NotNull
+    private Priority priority;
 }

@@ -26,6 +26,12 @@ public class Task {
     @Column(nullable = false)
     private String description;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TaskStatus taskStatus;
+
+    private Priority priority;
+
     @Column(nullable = false)
     private LocalDate localDate;
 }

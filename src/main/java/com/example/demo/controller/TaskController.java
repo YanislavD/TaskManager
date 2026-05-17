@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.controller.dto.CreateTaskRequest;
 import com.example.demo.controller.dto.TaskResponse;
 import com.example.demo.controller.dto.UpdateTaskRequest;
+import com.example.demo.model.TaskStatus;
 import com.example.demo.service.TaskService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -34,18 +35,26 @@ public class TaskController {
     }
 
     @GetMapping
-    public ResponseEntity<List<TaskResponse>> getAll() {
-        return ResponseEntity.ok(taskService.getAllTasks());
+    public ResponseEntity<List<TaskResponse>> getTasks(
+            @RequestParam(required = false) TaskStatus status,
+            @RequestParam(required = false) String title
+    ) {
+
+        return ResponseEntity.ok(
+                taskService.getAll(status, title)
+        );
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<List<TaskResponse>> getAllById(@PathVariable UUID id){
-        return ResponseEntity.ok(taskService.getAllById(id));
+    public ResponseEntity<TaskResponse> getTaskById(@PathVariable UUID id){
+        return ResponseEntity.ok(taskService.getById(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TaskResponse> updateTask(@PathVariable UUID id, @RequestBody UpdateTaskRequest updateTaskDto){
+    public ResponseEntity<TaskResponse> updateTask(@PathVariable UUID id,@Valid @RequestBody UpdateTaskRequest updateTaskDto){
         return ResponseEntity.ok(taskService.update(id, updateTaskDto));
     }
+
+
 
 }
